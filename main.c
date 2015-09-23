@@ -15,7 +15,34 @@
 
 #include <stdio.h>
 #include <gtk/gtk.h>
-#include "funcs.h"
+
+//mapno
+char map[10];
+//arguments for running
+char arguments[100];
+
+GtkEntry *mapno_field; //# of map to be played
+
+//Some essential functions
+//this function executes Musket Doom
+void 
+run_game (GtkApplication* app,
+      	  gpointer		  user_data)
+{
+	g_print ("Running game...\n");
+	if (map != "")
+	{
+		strcat(arguments, "./prboom ");
+		strcat(arguments, "-warp 1 ");
+		strcat(arguments, "3");
+		system(arguments);
+	}
+	else
+	{
+		system("./prboom");
+	}
+}
+
 
 /*activate is a signal within GTK+ that is responsible for opening the first window
 * in GTK+. In essence, this should be where most of our interface programming is done.
@@ -39,7 +66,6 @@ activate (GtkApplication* app,
   //textboxes
   GtkEntry *ipaddr_field; //ip address field
   GtkEntry *numplrs_field; //# of players field
-  GtkEntry *mapno_field; //# of map to be played
   //labels
   GtkWidget *ipaddr_label;
   GtkWidget *numplrs_label;
